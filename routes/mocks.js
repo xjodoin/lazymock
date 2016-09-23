@@ -20,11 +20,13 @@ router.post('/1.0/tax/get', function(req, res, next) {
     }];
 
     var avatax = {
-        TaxSummary: taxes
+        TaxSummary: taxes,
+        TotalTax: 0
     };
 
     _.each(taxes, function(tax) {
         tax.Tax = roundToTwo(amount * tax.Rate);
+        avatax.TotalTax = avatax.TotalTax + tax.Tax;
     });
 
     res.send(avatax);
